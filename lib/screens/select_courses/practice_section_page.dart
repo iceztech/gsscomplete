@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gsscomplete/commons/components/answers_container.dart';
 import 'package:gsscomplete/utils/constants/general_constants.dart';
+import 'package:gsscomplete/models/static_data/question_data.dart';
 
 class PracticePage extends StatefulWidget {
   const PracticePage({Key? key}) : super(key: key);
@@ -12,6 +13,68 @@ class PracticePage extends StatefulWidget {
 }
 
 class _PracticePageState extends State<PracticePage> {
+  late List<Question> _questions = sample_data
+      .map(
+        (question) => Question(
+            id: question['id'],
+            question: question['question'],
+            options: question['options'],
+            answer: question['answer_index']),
+      )
+      .toList();
+
+  List<Question> get questions => this._questions;
+
+  bool _isAnswered = false;
+  bool get isAnswered => this._isAnswered;
+
+  late int _correctAns;
+  int get correctAns => this._correctAns;
+
+  late int _selectedAns;
+  int get selectedAns => this._selectedAns;
+
+  // for more about obs please check documentation
+  int _questionNumber = 1;
+  int get questionNumber => this._questionNumber;
+
+  int _numOfCorrectAns = 0;
+  int get numOfCorrectAns => this._numOfCorrectAns;
+
+  void checkAns(Question question, int selectedIndex) {
+    // because once user press any option then it will run
+    _isAnswered = true;
+    _correctAns = question.answer;
+    _selectedAns = selectedIndex;
+
+    if (_correctAns == _selectedAns) _numOfCorrectAns++;
+
+    // It will stop the counter
+
+    // Once user select an ans after 3s it will go to the next qn
+    Future.delayed(Duration(seconds: 3), () {
+      // nextQuestion();
+    });
+  }
+
+  void nextQuestion() {
+    if (_questionNumber != _questions.length) {
+      _isAnswered = false;
+      // _pageController.nextPage(
+      //     duration: Duration(milliseconds: 250), curve: Curves.ease);
+
+      // Reset the counter
+      //_animationController.reset();
+
+      // Then start it again
+      // Once timer is finish go to the next qn
+      // _animationController.forward().whenComplete(nextQuestion);
+    } else {
+      // Get package provide us simple way to naviigate another page
+      //Get.to(ScoreScreen());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
