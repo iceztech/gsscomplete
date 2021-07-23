@@ -8,7 +8,7 @@ class ReviewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: Text('Answer Review', style: TextStyle(color: Colors.white)),
+        title: Text('Answers Review', style: TextStyle(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Column(
