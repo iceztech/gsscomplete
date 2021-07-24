@@ -34,7 +34,6 @@ class _PracticePageState extends State<PracticePage> {
   late int _selectedAns;
   int get selectedAns => this._selectedAns;
 
-  // for more about obs please check documentation
   int _questionNumber = 1;
   int get questionNumber => this._questionNumber;
 
@@ -49,21 +48,13 @@ class _PracticePageState extends State<PracticePage> {
 
     if (_correctAns == _selectedAns) _numOfCorrectAns++;
 
-    // It will stop the counter
-
-    // Once user select an ans after 3s it will go to the next qn
-    Future.delayed(Duration(seconds: 3), () {
-      // nextQuestion();
-    });
+    
   }
 
   void nextQuestion() {
     if (_questionNumber != _questions.length) {
       _isAnswered = false;
-      // _pageController.nextPage(
-      //     duration: Duration(milliseconds: 250), curve: Curves.ease);
-
-      // _animationController.forward().whenComplete(nextQuestion);
+      _questionNumber++;
     } else {}
   }
 
@@ -101,7 +92,7 @@ class _PracticePageState extends State<PracticePage> {
                           )),
                       SizedBox(height: 10),
                       Text(
-                        'Ekere mgbochiume Igbo uzo  __________',
+                        questions[_questionNumber].question,
                         style: TextStyle(color: kTextWhiteColor),
                       ),
                     ],
@@ -115,19 +106,19 @@ class _PracticePageState extends State<PracticePage> {
           ),
           AnswerPracticeContainer(
             alphabet: 'A',
-            answer: '2000',
+            answer: questions[_questionNumber].options[0],
           ),
           AnswerPracticeContainer(
             alphabet: 'B',
-            answer: '100',
+            answer: questions[_questionNumber].options[1],
           ),
           AnswerPracticeContainer(
             alphabet: 'C',
-            answer: '1000',
+            answer: questions[_questionNumber].options[2],
           ),
           AnswerPracticeContainer(
             alphabet: 'D',
-            answer: '20',
+            answer: questions[_questionNumber].options[3],
           ),
           Spacer(),
           Container(
