@@ -63,16 +63,8 @@ class _PracticePageState extends State<PracticePage> {
       // _pageController.nextPage(
       //     duration: Duration(milliseconds: 250), curve: Curves.ease);
 
-      // Reset the counter
-      //_animationController.reset();
-
-      // Then start it again
-      // Once timer is finish go to the next qn
       // _animationController.forward().whenComplete(nextQuestion);
-    } else {
-      // Get package provide us simple way to naviigate another page
-      //Get.to(ScoreScreen());
-    }
+    } else {}
   }
 
   @override
