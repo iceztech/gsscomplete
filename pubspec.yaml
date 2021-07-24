@@ -31,6 +31,9 @@ dependencies:
   url_launcher:
   flutter_paystack: ^1.0.5+1
   monnify_flutter_sdk: ^1.1.0
+  shared_preferences: ^0.5.10
+  sqflite: ^2.0.0+3
+  path:
 
 dev_dependencies:
   flutter_test:
