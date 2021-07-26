@@ -24,6 +24,7 @@ class _ProfileCoursePageState extends State<ProfileCoursePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white70.withOpacity(0.99),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -66,7 +67,7 @@ class _ProfileCoursePageState extends State<ProfileCoursePage> {
                         height: 10,
                       ),
                       Container(
-                        width: 160,
+                        width: 145,
                         child: Text(
                           'Electronic and Computer Enginering ',
                           maxLines: 3,
@@ -163,7 +164,14 @@ class _ProfileCoursePageState extends State<ProfileCoursePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'Highest Score: GSS110',
+                          'Highest Score:',
+                          style: TextStyle(
+                            color: kTextWhiteColor,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          'Gss100',
                           style:
                               TextStyle(color: kTextWhiteColor, fontSize: 16),
                         ),
@@ -203,42 +211,45 @@ class _ProfileCoursePageState extends State<ProfileCoursePage> {
             ),
           ),
           Spacer(),
-          Container(
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _circularIcon(
-                      bgcolor: kPrimaryColor,
-                      height: 50,
-                      icon: Icons.home,
-                      width: 50,
-                      title: 'Home',
-                      borderColor: Colors.white,
-                      onTap: () {},
-                      txtcolor: kSecondaryColor),
-                  _circularIcon(
-                      bgcolor: kSecondaryColor,
-                      height: 65,
-                      icon: Icons.play_arrow,
-                      width: 65,
-                      title: 'Start',
-                      onTap: () {
-                        kopenPage(context, SelectCourseStudyType());
-                      },
-                      borderColor: Colors.grey.withOpacity(0.6),
-                      txtcolor: kPrimaryColor),
-                  _circularIcon(
-                      bgcolor: kPrimaryColor,
-                      height: 50,
-                      icon: Icons.message,
-                      width: 50,
-                      title: 'Discussion',
-                      onTap: () {},
-                      borderColor: Colors.white,
-                      txtcolor: kSecondaryColor)
-                ],
-              ))
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _circularIcon(
+                        bgcolor: kPrimaryColor,
+                        height: 50,
+                        icon: Icons.home,
+                        width: 50,
+                        title: 'Home',
+                        borderColor: Colors.white,
+                        onTap: () {},
+                        txtcolor: kSecondaryColor),
+                    _circularIcon(
+                        bgcolor: kSecondaryColor,
+                        height: 65,
+                        icon: Icons.play_arrow,
+                        width: 65,
+                        title: 'Start',
+                        onTap: () {
+                          kopenPage(context, SelectCourseStudyType());
+                        },
+                        borderColor: Colors.grey.withOpacity(0.6),
+                        txtcolor: kPrimaryColor),
+                    _circularIcon(
+                        bgcolor: kPrimaryColor,
+                        height: 50,
+                        icon: Icons.message,
+                        width: 50,
+                        title: 'Chat',
+                        onTap: () {},
+                        borderColor: Colors.white,
+                        txtcolor: kSecondaryColor)
+                  ],
+                )),
+          )
         ],
       ),
     );
@@ -274,7 +285,8 @@ class _ProfileCoursePageState extends State<ProfileCoursePage> {
           ),
           Text(
             title,
-            style: TextStyle(color: txtcolor, fontSize: 18),
+            style: TextStyle(
+                color: txtcolor, fontSize: 14, fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: 10,

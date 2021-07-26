@@ -19,6 +19,7 @@ class _ActivationPageState extends State<ActivationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white70.withOpacity(0.99),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
@@ -97,11 +98,11 @@ class _ActivationPageState extends State<ActivationPage> {
                   kopenPage(context, ActivationPageInfo());
                 },
                 child: Container(
-                  height: 80,
+                  height: 70,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(0),
                   child: Card(
-                    elevation: 8,
+                    elevation: 4,
                     child: Center(
                       child: Text(
                         'Help on how to get Activation Code',

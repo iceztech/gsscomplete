@@ -30,8 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          platform: TargetPlatform.iOS, primarySwatch: Colors.deepOrange),
+      theme: ThemeData(primarySwatch: Colors.deepOrange),
       home: LandingPage(),
     );
   }

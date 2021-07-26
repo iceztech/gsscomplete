@@ -34,7 +34,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
   late int _correctAns;
   int get correctAns => this._correctAns;
 
-  late int _selectedAns;
+  late int _selectedAns = 0;
   int get selectedAns => this._selectedAns;
 
   int _questionNumber = 0;
@@ -62,7 +62,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
       if (_correctAns == _selectedAns) {
         _numOfCorrectAns++;
         print(_numOfCorrectAns);
-        Future.delayed(Duration(seconds: 2), () {
+        Future.delayed(Duration(seconds: 5), () {
           kopenPage(context, ScorePage());
         });
       }
@@ -113,7 +113,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kansBgColor,
+      backgroundColor: Colors.white70.withOpacity(0.99),
       body: Column(
         children: [
           Container(
@@ -158,6 +158,10 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             press: () {
               checkAns(questions[_questionNumber], 0);
             },
+            index: 0,
+            correctAns: questions[_questionNumber].answer,
+            isAnswered: isAnswered,
+            selectedAns: selectedAns,
           ),
           AnswerExamContainer(
             alphabet: 'B',
@@ -165,6 +169,10 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             press: () {
               checkAns(questions[_questionNumber], 1);
             },
+            index: 1,
+            correctAns: questions[_questionNumber].answer,
+            isAnswered: isAnswered,
+            selectedAns: selectedAns,
           ),
           AnswerExamContainer(
             alphabet: 'C',
@@ -172,6 +180,10 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             press: () {
               checkAns(questions[_questionNumber], 2);
             },
+            index: 2,
+            correctAns: questions[_questionNumber].answer,
+            isAnswered: isAnswered,
+            selectedAns: selectedAns,
           ),
           AnswerExamContainer(
             alphabet: 'D',
@@ -179,6 +191,10 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             press: () {
               checkAns(questions[_questionNumber], 3);
             },
+            index: 3,
+            correctAns: questions[_questionNumber].answer,
+            isAnswered: isAnswered,
+            selectedAns: selectedAns,
           ),
           Spacer(),
           Row(
@@ -188,9 +204,9 @@ class _TakeExamSectionState extends State<TakeExamSection> {
                 visible: isBackward,
                 child: _circularIcon(
                   bgcolor: kPrimaryColor,
-                  height: 60,
+                  height: 50,
                   icon: Icons.arrow_back_ios,
-                  width: 60,
+                  width: 50,
                   title: '',
                   borderColor: Colors.white,
                   onTap: () {
@@ -222,9 +238,9 @@ class _TakeExamSectionState extends State<TakeExamSection> {
                 visible: isForward,
                 child: _circularIcon(
                   bgcolor: kPrimaryColor,
-                  height: 60,
+                  height: 50,
                   icon: Icons.arrow_forward_ios,
-                  width: 60,
+                  width: 50,
                   title: '',
                   borderColor: Colors.white,
                   onTap: () {
@@ -263,6 +279,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             child: Icon(
               icon,
               color: Colors.white,
+              size: 16,
             ),
           ),
           SizedBox(
@@ -282,9 +299,12 @@ class _TakeExamSectionState extends State<TakeExamSection> {
           child: Card(
             margin: EdgeInsets.only(top: 20),
             elevation: 8,
-            // shadowColor: kCardShadowColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
             child: Container(
               width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
               child: Container(
                   color: Colors.white,
                   margin: const EdgeInsets.only(top: 10),

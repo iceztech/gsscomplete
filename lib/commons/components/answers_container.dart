@@ -50,7 +50,7 @@ class _AnswerPracticeContainerState extends State<AnswerPracticeContainer> {
           });
         },
         child: Card(
-          color: getTheRightColor() == Colors.grey
+          color: getTheRightColor() == Colors.white
               ? Colors.transparent
               : getTheRightColor(),
           shape: RoundedRectangleBorder(
@@ -105,49 +105,91 @@ class _AnswerPracticeContainerState extends State<AnswerPracticeContainer> {
   }
 }
 
-class AnswerExamContainer extends StatelessWidget {
+class AnswerExamContainer extends StatefulWidget {
   final String alphabet, answer;
   final Color bgColor;
-  final Function press;
+  final VoidCallback press;
+  final bool isAnswered;
+  final int index;
+  final int correctAns, selectedAns;
   const AnswerExamContainer(
       {required this.alphabet,
       required this.answer,
       this.bgColor = Colors.white,
-      required this.press});
+      required this.press,
+      required this.isAnswered,
+      required this.index,
+      required this.correctAns,
+      required this.selectedAns});
 
   @override
+  _AnswerExamContainerState createState() => _AnswerExamContainerState();
+}
+
+class _AnswerExamContainerState extends State<AnswerExamContainer> {
+  @override
   Widget build(BuildContext context) {
+    Color getTheRightColor() {
+      if (widget.isAnswered) {
+        if (widget.index == widget.correctAns) {
+          return kPrimaryColor;
+        }
+      }
+      return Colors.white;
+    }
+
+    Color getAlphaColor() {
+      if (widget.isAnswered) {
+        if (widget.index == widget.correctAns) {
+          return kSecondaryColor;
+        }
+      }
+      return kPrimaryColor;
+    }
+
+    Color getTextColor() {
+      if (widget.isAnswered) {
+        if (widget.index == widget.correctAns) {
+          return kTextWhiteColor;
+        }
+      }
+      return kPrimaryColor;
+    }
+
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: GestureDetector(
         onTap: () {
-          press();
+          setState(() {
+            getTheRightColor();
+            widget.press();
+          });
         },
         child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              topLeft: Radius.circular(30),
-            ),
-          ),
+          color: getTheRightColor() == Colors.grey
+              ? Colors.transparent
+              : getTheRightColor(),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           elevation: 1,
           child: Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  height: 70,
+                  padding: EdgeInsets.all(25),
                   width: 55,
                   decoration: BoxDecoration(
-                    color: kPrimaryColor,
+                    color: getAlphaColor() == kBlackColor
+                        ? Colors.transparent
+                        : getAlphaColor(),
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      topLeft: Radius.circular(30),
+                      bottomLeft: Radius.circular(4),
+                      topLeft: Radius.circular(4),
                     ),
                   ),
                   child: Center(
                     child: Text(
-                      alphabet,
+                      widget.alphabet,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -160,10 +202,10 @@ class AnswerExamContainer extends StatelessWidget {
                   width: 20,
                 ),
                 Text(
-                  answer,
+                  widget.answer,
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16.0,
+                    color: getTextColor(),
+                    fontSize: 15.0,
                   ),
                   textAlign: TextAlign.center,
                 ),

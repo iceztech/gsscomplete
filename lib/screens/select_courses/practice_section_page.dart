@@ -32,7 +32,7 @@ class _PracticePageState extends State<PracticePage> {
   late int _correctAns;
   int get correctAns => this._correctAns;
 
-  late int _selectedAns;
+  late int _selectedAns = 0;
   int get selectedAns => this._selectedAns;
 
   int _questionNumber = 0;
@@ -95,7 +95,7 @@ class _PracticePageState extends State<PracticePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kansBgColor,
+      backgroundColor: Colors.white70.withOpacity(0.99),
       body: Column(
         children: [
           ConstrainedBox(

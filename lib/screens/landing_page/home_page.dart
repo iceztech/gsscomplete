@@ -4,6 +4,7 @@ import 'package:gsscomplete/commons/widgets/bottomsheet/bottomsheet.dart';
 import 'package:gsscomplete/models/static_data/activation_category_data.dart';
 import 'package:gsscomplete/models/static_data/home_data.dart';
 import 'package:gsscomplete/screens/activation/activation_page.dart';
+import 'package:gsscomplete/screens/feedback/feedback_page.dart';
 import 'package:gsscomplete/screens/registration/registration_page.dart';
 import 'package:gsscomplete/utils/constants/general_constants.dart';
 import 'package:gsscomplete/utils/constants/navigator/navigation_constant.dart';
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.only(bottom: 10),
               width: MediaQuery.of(context).size.width,
               decoration: new BoxDecoration(
                   borderRadius: BorderRadius.vertical(
@@ -82,12 +83,15 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    Text(
-                                      'Welcome',
-                                      style: TextStyle(color: Colors.white),
+                                    Visibility(
+                                      visible: false,
+                                      child: Text(
+                                        'Welcome',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                     SizedBox(
-                                      height: 20,
+                                      height: 5,
                                     ),
                                     Container(
                                         width: 90,
@@ -124,7 +128,9 @@ class _HomePageState extends State<HomePage> {
                                           },
                                           child: Text(
                                             'Activate Now',
-                                            style: kHeadingextStyle,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white),
                                           ),
                                         ),
                                       ),
@@ -135,8 +141,11 @@ class _HomePageState extends State<HomePage> {
                                     GestureDetector(
                                       onTap: _toggle,
                                       child: Text(
-                                        'Or Sign In',
-                                        style: kHeadingextStyle,
+                                        'No Account? Activate Now',
+                                        style: TextStyle(
+                                            color:
+                                                Colors.white.withOpacity(0.6),
+                                            fontSize: 15),
                                       ),
                                     ),
                                   ],
@@ -160,34 +169,42 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      height: 50,
+                                      height: 30,
                                     ),
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          GestureDetector(
+                                    Stack(
+                                      children: [
+                                        Container(
+                                            width: 140,
+                                            height: 80,
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Image.asset(
+                                                'assets/images/unizik.jpg',
+                                                height: 40,
+                                                width: 40,
+                                              ),
+                                            )),
+                                        Positioned(
+                                          right: 110,
+                                          child: GestureDetector(
                                               onTap: _toggle,
-                                              child: Align(
-                                                alignment: Alignment.topCenter,
-                                                child: Icon(Icons.close,
-                                                    color: Colors.white),
+                                              child: Container(
+                                                height: 30,
+                                                width: 30,
+                                                decoration: BoxDecoration(
+                                                    color: kSecondaryColor,
+                                                    shape: BoxShape.circle),
+                                                child: Icon(
+                                                  Icons.close,
+                                                  color: Colors.white,
+                                                  size: 17,
+                                                ),
                                               )),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.all(2),
-                                      child: Image.asset(
-                                        'assets/images/unizik.jpg',
-                                        height: 90,
-                                        width: 90,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(
                                       height: 5,
@@ -200,8 +217,8 @@ class _HomePageState extends State<HomePage> {
                                       height: 15,
                                     ),
                                     Container(
-                                        width: 170,
-                                        height: 35,
+                                        width: 175,
+                                        height: 40,
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                               width: 2.0,
@@ -210,8 +227,8 @@ class _HomePageState extends State<HomePage> {
                                               Radius.circular(8.0)),
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8.0, left: 4.0),
+                                          padding:
+                                              const EdgeInsets.only(left: 2.0),
                                           child: TextField(
                                             maxLines: 1,
                                             maxLength: 11,
@@ -228,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         )),
                                     SizedBox(
-                                      height: 25,
+                                      height: 20,
                                     ),
                                     Container(
                                       height: 35,
@@ -243,16 +260,18 @@ class _HomePageState extends State<HomePage> {
                                       child: Center(
                                         child: Text(
                                           'Sign In',
-                                          style: kHeadingextStyle,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white),
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 30),
+                                    SizedBox(height: 20),
                                     Text(
                                       'No Account? Activate Now',
                                       style: TextStyle(
                                           color: Colors.white.withOpacity(0.6),
-                                          fontSize: 18),
+                                          fontSize: 15),
                                     ),
                                   ],
                                 ),
@@ -264,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   Positioned(
-                    bottom: 1,
+                    bottom: 14,
                     left: 12,
                     child: Align(
                         alignment: Alignment.bottomLeft,
@@ -333,6 +352,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Container(
                         child: GridView.builder(
+                            physics: NeverScrollableScrollPhysics(),
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     mainAxisSpacing: 0,
@@ -349,7 +369,7 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     if (index == 0) {
                                       showInfoDialog(
-                                          height: 180,
+                                          height: 200,
                                           widgets: dialogBodyActivation(),
                                           actionText: 'ACTIVATE NOW',
                                           onTap: () {
@@ -362,6 +382,8 @@ class _HomePageState extends State<HomePage> {
                                                       RegistrationPage());
                                                 });
                                           });
+                                    } else if (index == 5) {
+                                      kopenPage(context, FeedBackPage());
                                     }
                                   },
                                   child: Container(
@@ -386,14 +408,15 @@ class _HomePageState extends State<HomePage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                            width: 50,
-                                            height: 50,
+                                            width: 38,
+                                            height: 38,
                                             decoration: BoxDecoration(
                                                 color: menu[index].color,
                                                 shape: BoxShape.circle),
                                             child: Icon(
                                               menu[index].icon,
                                               color: Colors.white,
+                                              size: 18,
                                             )),
                                         SizedBox(
                                           height: 10,
@@ -403,7 +426,7 @@ class _HomePageState extends State<HomePage> {
                                           style: TextStyle(
                                             color: kPrimaryColor,
                                             fontSize: 15,
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.w400,
                                           ),
                                         )
                                       ],
@@ -438,57 +461,53 @@ class _HomePageState extends State<HomePage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Dialog(
+          return AlertDialog(
             elevation: 25.0,
+            contentPadding: EdgeInsets.zero,
+            titlePadding: EdgeInsets.zero,
+            actionsPadding: EdgeInsets.zero,
+            buttonPadding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0)),
-            child: StatefulBuilder(
+            content: StatefulBuilder(
                 builder: (BuildContext context, StateSetter setState) {
               return Stack(
                 children: [
                   Container(
                     height: height,
-                    child: Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: widgets,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        widgets,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () => Navigator.of(context).pop(),
+                                child: Text('CANCEL',
+                                    style: TextStyle(
+                                        color: kSecondaryColor, fontSize: 15)),
+                              ),
+                              SizedBox(width: 16),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  onTap();
+                                },
+                                child: Text(actionText,
+                                    style: TextStyle(
+                                        color: kSecondaryColor, fontSize: 15)),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => Navigator.of(context).pop(),
-                                  child: Text('CANCEL',
-                                      style: TextStyle(
-                                          color: kSecondaryColor,
-                                          fontSize: 16)),
-                                ),
-                                SizedBox(width: 16),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                    onTap();
-                                  },
-                                  child: Text(actionText,
-                                      style: TextStyle(
-                                          color: kSecondaryColor,
-                                          fontSize: 16)),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                 ],
@@ -548,9 +567,6 @@ class _HomePageState extends State<HomePage> {
                       setState(() {
                         radioItem = activate[index].name;
                         id = activate[index].index;
-
-                        print(radioItem);
-                        print(id);
                       });
                     },
                   );

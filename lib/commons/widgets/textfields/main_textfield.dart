@@ -22,32 +22,36 @@ class NormalFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 4.0),
-      child: TextFormField(
-        maxLength: maxLength,
-        maxLines: 1,
-        cursorColor: kSecondaryColor,
-        enabled: isEditable,
-        controller: controller,
-        onChanged: (String name) => onChanged,
-        keyboardType: textInputType,
-        style: TextStyle(
-            fontStyle: FontStyle.normal,
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.w400),
-        decoration: InputDecoration(
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: kSecondaryColor),
+    return Card(
+      elevation: 4,
+      child: Container(
+        height: 55,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(4))),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: TextField(
+            maxLength: maxLength,
+            maxLines: 1,
+            cursorColor: kSecondaryColor,
+            enabled: isEditable,
+            controller: controller,
+            onChanged: (String name) => onChanged,
+            keyboardType: textInputType,
+            style: TextStyle(
+                fontStyle: FontStyle.normal,
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w400),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+              labelText: labelText,
+              counterText: "",
+              hintStyle: TextStyle(color: Colors.black38, fontSize: 16.0),
+            ),
           ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: kSecondaryColor),
-          ),
-          hintText: hintText,
-          labelText: labelText,
-          counterText: "",
-          hintStyle: TextStyle(color: Colors.black38, fontSize: 16.0),
         ),
       ),
     );

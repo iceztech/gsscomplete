@@ -17,6 +17,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white70.withOpacity(0.99),
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         title: Text(
@@ -32,7 +33,7 @@ class _PaymentPageState extends State<PaymentPage> {
             SizedBox(height: 10),
             Text(
               'Select Payment Method Below',
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 20,
@@ -111,11 +112,14 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               title: Text(
                 title,
-                style: TextStyle(fontSize: 13, color: kPrimaryColor),
+                style: TextStyle(
+                    fontSize: 14,
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
                 subtitle,
-                style: TextStyle(fontSize: 11, color: Colors.black),
+                style: TextStyle(fontSize: 13, color: Colors.black),
               ),
               trailing:
                   Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black),
