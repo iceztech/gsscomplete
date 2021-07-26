@@ -31,8 +31,7 @@ class MyApp extends StatelessWidget {
       title: '',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-      ),
+          platform: TargetPlatform.iOS, primarySwatch: Colors.deepOrange),
       home: LandingPage(),
     );
   }

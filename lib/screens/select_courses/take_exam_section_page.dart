@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gsscomplete/commons/components/answers_container.dart';
+import 'package:gsscomplete/models/static_data/question_data.dart';
 import 'package:gsscomplete/screens/score_page/score_page.dart';
 import 'package:gsscomplete/utils/constants/general_constants.dart';
 import 'package:gsscomplete/utils/constants/navigator/navigation_constant.dart';
@@ -13,9 +14,106 @@ class TakeExamSection extends StatefulWidget {
 }
 
 class _TakeExamSectionState extends State<TakeExamSection> {
+  late bool isForward, isBackward;
+
+  List<Question> _questions = sample_data
+      .map(
+        (question) => Question(
+            id: question['id'],
+            question: question['question'],
+            options: question['options'],
+            answer: question['answer_index']),
+      )
+      .toList();
+
+  List<Question> get questions => this._questions;
+
+  bool _isAnswered = false;
+  bool get isAnswered => this._isAnswered;
+
+  late int _correctAns;
+  int get correctAns => this._correctAns;
+
+  late int _selectedAns;
+  int get selectedAns => this._selectedAns;
+
+  int _questionNumber = 0;
+
+  late int questionNum;
+
+  int _numOfCorrectAns = 0;
+  int get numOfCorrectAns => this._numOfCorrectAns;
+
+  void checkAns(Question question, int selectedIndex) {
+    setState(() {
+      _isAnswered = true;
+      _correctAns = question.answer;
+      _selectedAns = selectedIndex;
+    });
+    if (_questionNumber != _questions.length - 1) {
+      if (_correctAns == _selectedAns) {
+        _numOfCorrectAns++;
+        print(_numOfCorrectAns);
+      }
+      Future.delayed(Duration(seconds: 2), () {
+        nextQuestion();
+      });
+    } else if (_questionNumber == _questions.length - 1) {
+      if (_correctAns == _selectedAns) {
+        _numOfCorrectAns++;
+        print(_numOfCorrectAns);
+        Future.delayed(Duration(seconds: 2), () {
+          kopenPage(context, ScorePage());
+        });
+      }
+    } else {}
+  }
+
+  void nextQuestion() {
+    if (_questionNumber != _questions.length - 1) {
+      setState(() {
+        _isAnswered = false;
+        _questionNumber++;
+        questionNum++;
+        isBackward = true;
+      });
+    } else {
+      setState(() {
+        isForward = false;
+      });
+    }
+  }
+
+  void previousQuestion() {
+    if (_questionNumber >= 1) {
+      setState(() {
+        _isAnswered = false;
+        _questionNumber--;
+        questionNum--;
+
+        isForward = true;
+      });
+    } else {
+      setState(() {
+        isForward = true;
+        isBackward = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    questionNum = _questionNumber + 1;
+
+    isForward = true;
+    isBackward = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kansBgColor,
       body: Column(
         children: [
           Container(
@@ -40,7 +138,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
                       SizedBox(height: 10),
                       Text(
                         'Time Remaining: 13:09',
-                        style: TextStyle(color: kTextWhiteColor),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ],
                   ),
@@ -48,42 +146,63 @@ class _TakeExamSectionState extends State<TakeExamSection> {
               ),
             ),
           ),
-          QuestionContainer(),
+          QuestionContainer(
+              questionNumber: questionNum.toString(),
+              question: questions[_questionNumber].question),
           SizedBox(
             height: 10,
           ),
           AnswerExamContainer(
             alphabet: 'A',
-            answer: 'Austria',
+            answer: questions[_questionNumber].options[0],
+            press: () {
+              checkAns(questions[_questionNumber], 0);
+            },
           ),
           AnswerExamContainer(
             alphabet: 'B',
-            answer: 'Britain',
+            answer: questions[_questionNumber].options[1],
+            press: () {
+              checkAns(questions[_questionNumber], 1);
+            },
           ),
           AnswerExamContainer(
             alphabet: 'C',
-            answer: 'USA',
+            answer: questions[_questionNumber].options[2],
+            press: () {
+              checkAns(questions[_questionNumber], 2);
+            },
           ),
           AnswerExamContainer(
             alphabet: 'D',
-            answer: 'Norway',
+            answer: questions[_questionNumber].options[3],
+            press: () {
+              checkAns(questions[_questionNumber], 3);
+            },
           ),
           Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _circularIcon(
+              Visibility(
+                visible: isBackward,
+                child: _circularIcon(
                   bgcolor: kPrimaryColor,
                   height: 60,
                   icon: Icons.arrow_back_ios,
                   width: 60,
                   title: '',
                   borderColor: Colors.white,
-                  onTap: () {},
-                  txtcolor: kSecondaryColor),
+                  onTap: () {
+                    setState(() {
+                      previousQuestion();
+                    });
+                  },
+                ),
+              ),
               GestureDetector(
                 onTap: () {
-                  kopenPage(context, ScorePage());
+                  //kopenPage(context, ScorePage());
                 },
                 child: Container(
                   width: 80,
@@ -99,15 +218,20 @@ class _TakeExamSectionState extends State<TakeExamSection> {
                   ),
                 ),
               ),
-              _circularIcon(
+              Visibility(
+                visible: isForward,
+                child: _circularIcon(
                   bgcolor: kPrimaryColor,
                   height: 60,
                   icon: Icons.arrow_forward_ios,
                   width: 60,
                   title: '',
                   borderColor: Colors.white,
-                  onTap: () {},
-                  txtcolor: kSecondaryColor),
+                  onTap: () {
+                    nextQuestion();
+                  },
+                ),
+              ),
             ],
           )
         ],
@@ -120,7 +244,6 @@ class _TakeExamSectionState extends State<TakeExamSection> {
       required double width,
       required IconData icon,
       required Color bgcolor,
-      required Color txtcolor,
       required Color borderColor,
       required String title,
       required Function onTap}) {
@@ -149,13 +272,9 @@ class _TakeExamSectionState extends State<TakeExamSection> {
       ),
     );
   }
-}
 
-class QuestionContainer extends StatelessWidget {
-  const QuestionContainer();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget QuestionContainer(
+      {required String questionNumber, required String question}) {
     return Stack(
       children: [
         Padding(
@@ -163,7 +282,7 @@ class QuestionContainer extends StatelessWidget {
           child: Card(
             margin: EdgeInsets.only(top: 20),
             elevation: 8,
-            shadowColor: kCardShadowColor,
+            // shadowColor: kCardShadowColor,
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: Container(
@@ -172,7 +291,7 @@ class QuestionContainer extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      'The first European to set a foot in Nigeria soil is ',
+                      question,
                       style: TextStyle(fontSize: 16),
                     ),
                   )),
@@ -189,7 +308,7 @@ class QuestionContainer extends StatelessWidget {
                 BoxDecoration(shape: BoxShape.circle, color: kPrimaryColor),
             child: Center(
                 child: Text(
-              '1',
+              questionNumber,
               style: TextStyle(color: Colors.white),
             )),
           ),

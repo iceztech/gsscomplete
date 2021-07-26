@@ -36,7 +36,7 @@ class DbHelperClass {
     return true;
   }
 
-  Future<List<dynamic>> getData({
+  static Future<List<dynamic>> getData({
     dynamic dataModel,
     required String tableName,
     required String createTableQuery,
@@ -48,7 +48,7 @@ class DbHelperClass {
     return datas.map((e) => dataModel.fromMap(e)).toList();
   }
 
-  Future<void> update({
+  static Future<void> update({
     dynamic dataModel,
     required int id,
     required String tableName,
@@ -61,7 +61,7 @@ class DbHelperClass {
         .update(tableName, dataModel.toMap(), where: "id=?", whereArgs: [id]);
   }
 
-  Future<void> delete({
+  static Future<void> delete({
     required int id,
     dynamic dataModel,
     required String tableName,
