@@ -36,4 +36,15 @@ const List sample_data = [
     "options": ['Cin', 'Count>>', 'Cout', 'Output>>'],
     "answer_index": 2,
   },
+  {
+    "id": 5,
+    "question": "Who is the current Ceo of Google",
+    "options": [
+      'Philips Emeagwali',
+      'Jeff Bezos',
+      'Mark Zukerberg',
+      'Steve Jobs'
+    ],
+    "answer_index": 0,
+  },
 ];

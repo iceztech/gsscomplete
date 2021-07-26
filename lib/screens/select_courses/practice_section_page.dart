@@ -2,24 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gsscomplete/commons/components/answers_container.dart';
-import 'package:gsscomplete/utils/constants/general_constants.dart';
 import 'package:gsscomplete/models/static_data/question_data.dart';
+import 'package:gsscomplete/utils/constants/general_constants.dart';
 
 class PracticePage extends StatefulWidget {
-  const PracticePage({Key? key}) : super(key: key);
-
   @override
   _PracticePageState createState() => _PracticePageState();
 }
 
 class _PracticePageState extends State<PracticePage> {
-  late List<Question> _questions = sample_data
+  late bool isForward, isBackward;
+
+  List<Question> _questions = sample_data
       .map(
         (question) => Question(
-            id: question['id'],
-            question: question['question'],
-            options: question['options'],
-            answer: question['answer_index']),
+          id: question['id'],
+          question: question['question'],
+          options: question['options'],
+          answer: question['answer_index'],
+        ),
       )
       .toList();
 
@@ -34,28 +35,61 @@ class _PracticePageState extends State<PracticePage> {
   late int _selectedAns;
   int get selectedAns => this._selectedAns;
 
-  int _questionNumber = 1;
-  int get questionNumber => this._questionNumber;
+  int _questionNumber = 0;
+
+  late int questionNum;
 
   int _numOfCorrectAns = 0;
   int get numOfCorrectAns => this._numOfCorrectAns;
 
   void checkAns(Question question, int selectedIndex) {
-    // because once user press any option then it will run
-    _isAnswered = true;
-    _correctAns = question.answer;
-    _selectedAns = selectedIndex;
-
-    if (_correctAns == _selectedAns) _numOfCorrectAns++;
-
-    
+    setState(() {
+      _isAnswered = true;
+      _correctAns = question.answer;
+      _selectedAns = selectedIndex;
+    });
   }
 
   void nextQuestion() {
-    if (_questionNumber != _questions.length) {
-      _isAnswered = false;
-      _questionNumber++;
-    } else {}
+    if (_questionNumber != _questions.length - 1) {
+      setState(() {
+        _isAnswered = false;
+        _questionNumber++;
+        questionNum++;
+        isBackward = true;
+      });
+    } else {
+      setState(() {
+        isForward = false;
+      });
+    }
+  }
+
+  void previousQuestion() {
+    if (_questionNumber >= 1) {
+      setState(() {
+        _isAnswered = false;
+        _questionNumber--;
+        questionNum--;
+
+        isForward = true;
+      });
+    } else {
+      setState(() {
+        isForward = true;
+        isBackward = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    questionNum = _questionNumber + 1;
+
+    isForward = true;
+    isBackward = false;
   }
 
   @override
@@ -87,13 +121,15 @@ class _PracticePageState extends State<PracticePage> {
                       Align(
                           alignment: Alignment.topRight,
                           child: Text(
-                            '1/30',
-                            style: TextStyle(color: kSecondaryColor),
+                            questionNum.toString() +
+                                "/" +
+                                _questions.length.toString(),
+                            style: TextStyle(color: Colors.white),
                           )),
                       SizedBox(height: 10),
                       Text(
-                        questions[_questionNumber].question,
-                        style: TextStyle(color: kTextWhiteColor),
+                        '$questionNum.  ' + questions[_questionNumber].question,
+                        style: TextStyle(color: Colors.white),
                       ),
                     ],
                   ),
@@ -107,18 +143,46 @@ class _PracticePageState extends State<PracticePage> {
           AnswerPracticeContainer(
             alphabet: 'A',
             answer: questions[_questionNumber].options[0],
+            press: () {
+              checkAns(questions[_questionNumber], 0);
+            },
+            index: 0,
+            correctAns: questions[_questionNumber].answer,
+            isAnswered: isAnswered,
+            selectedAns: selectedAns,
           ),
           AnswerPracticeContainer(
             alphabet: 'B',
             answer: questions[_questionNumber].options[1],
+            press: () {
+              checkAns(questions[_questionNumber], 1);
+            },
+            index: 1,
+            correctAns: questions[_questionNumber].answer,
+            isAnswered: isAnswered,
+            selectedAns: selectedAns,
           ),
           AnswerPracticeContainer(
             alphabet: 'C',
             answer: questions[_questionNumber].options[2],
+            press: () {
+              checkAns(questions[_questionNumber], 2);
+            },
+            index: 2,
+            correctAns: questions[_questionNumber].answer,
+            isAnswered: isAnswered,
+            selectedAns: selectedAns,
           ),
           AnswerPracticeContainer(
             alphabet: 'D',
             answer: questions[_questionNumber].options[3],
+            press: () {
+              checkAns(questions[_questionNumber], 3);
+            },
+            index: 3,
+            correctAns: questions[_questionNumber].answer,
+            isAnswered: isAnswered,
+            selectedAns: selectedAns,
           ),
           Spacer(),
           Container(
@@ -126,33 +190,47 @@ class _PracticePageState extends State<PracticePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _circularIcon(
+                Visibility(
+                  visible: isBackward,
+                  child: _circularIcon(
                     bgcolor: kPrimaryColor,
                     height: 60,
                     icon: Icons.arrow_back_ios,
                     width: 60,
                     title: '',
                     borderColor: Colors.white,
-                    onTap: () {},
-                    txtcolor: kSecondaryColor),
+                    onTap: () {
+                      setState(() {
+                        previousQuestion();
+                      });
+                    },
+                  ),
+                ),
                 _circularIcon(
-                    bgcolor: kSecondaryColor,
-                    height: 50,
-                    icon: Icons.stop,
-                    width: 50,
-                    title: '',
-                    onTap: () {},
-                    borderColor: Colors.grey.withOpacity(0.6),
-                    txtcolor: kPrimaryColor),
-                _circularIcon(
+                  bgcolor: kPrimaryColor,
+                  height: 50,
+                  icon: Icons.stop,
+                  width: 50,
+                  title: '',
+                  onTap: () {},
+                  borderColor: Colors.grey.withOpacity(0.6),
+                ),
+                Visibility(
+                  visible: isForward,
+                  child: _circularIcon(
                     bgcolor: kPrimaryColor,
                     height: 60,
                     icon: Icons.arrow_forward_ios,
                     width: 60,
                     title: '',
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        nextQuestion();
+                      });
+                    },
                     borderColor: Colors.white,
-                    txtcolor: kSecondaryColor)
+                  ),
+                )
               ],
             ),
           )
@@ -166,7 +244,6 @@ class _PracticePageState extends State<PracticePage> {
       required double width,
       required IconData icon,
       required Color bgcolor,
-      required Color txtcolor,
       required Color borderColor,
       required String title,
       required Function onTap}) {
