@@ -20,7 +20,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70.withOpacity(0.99),
+      backgroundColor: kansBgColor,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         title: Text('Register', style: TextStyle(color: Colors.white)),
@@ -31,76 +31,90 @@ class _RegistrationPageState extends State<RegistrationPage> {
             child:
                 Icon(Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Enter your personal\ninformation to sign up',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: kPrimaryColor,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Text(
-              'Full Name',
-              style: TextStyle(fontSize: 14, color: kPrimaryColor),
-            ),
-            NormalFields(
-              controller: TextEditingController(text: ''),
-              hintText: '',
-              labelText: '',
-              isEditable: true,
-              onChanged: (String value) {},
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Phone Number',
-              style: TextStyle(fontSize: 14, color: kPrimaryColor),
-            ),
-            NormalFields(
-              controller: TextEditingController(text: ''),
-              hintText: '',
-              labelText: '',
-              isEditable: true,
-              onChanged: (String value) {},
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Email Address',
-              style: TextStyle(fontSize: 14, color: kPrimaryColor),
-            ),
-            NormalFields(
-              controller: TextEditingController(text: ''),
-              hintText: '',
-              labelText: '',
-              isEditable: true,
-              onChanged: (String value) {},
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            CustomButton(
-              text: 'Sign up',
-              onPressed: () {
-                kopenPage(context, PaymentPage());
-              },
-              borderRadius: 0,
-              disableButton: true,
-              margin: 0,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Enter your personal\ninformation to sign up',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: kBlackColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                '*FULL NAME',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: kBlackColor,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              NormalFields(
+                controller: TextEditingController(text: ''),
+                hintText: '',
+                labelText: 'enter name',
+                isEditable: true,
+                onChanged: (String value) {},
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                '*PHONE NUMBER',
+                style: TextStyle(fontSize: 12, color: kBlackColor),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              NormalFields(
+                controller: TextEditingController(text: ''),
+                hintText: '',
+                labelText: 'enter phone number',
+                isEditable: true,
+                onChanged: (String value) {},
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                '*EMAIL ADDRESS',
+                style: TextStyle(fontSize: 12, color: kBlackColor),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              NormalFields(
+                controller: TextEditingController(text: ''),
+                hintText: '',
+                labelText: 'enter email address',
+                isEditable: true,
+                onChanged: (String value) {},
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              CustomButton(
+                text: 'Sign up',
+                onPressed: () {
+                  kopenPage(context, PaymentPage());
+                },
+                borderRadius: 0,
+                disableButton: true,
+                margin: 0,
+              ),
+            ],
+          ),
         ),
       ),
     );

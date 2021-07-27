@@ -11,7 +11,7 @@ const kGreenColor = Color(0xFF6AC259);
 const kRedColor = Color(0xFFE92E30);
 const kGrayColor = Color(0xFFC1C1C1);
 const kBlackColor = Color(0xFF101010);
-const kansBgColor = Color(0xFFe2bbc3);
+const kansBgColor = Color(0xFFf2f2f2);
 const kCardShadowColor = Color(0xFF7b6669);
 const kBorderColor = Color(0xFFb2a5ba);
 

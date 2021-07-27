@@ -18,7 +18,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white70.withOpacity(0.99),
+        backgroundColor: kansBgColor,
         appBar: AppBar(
           title: Text('Feedback'),
           centerTitle: false,
@@ -33,7 +33,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -43,7 +43,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 Text(
                   'Feedback Here...',
                   style: TextStyle(
-                      color: kPrimaryColor,
+                      color: kBlackColor,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
@@ -52,15 +52,15 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 ),
                 Text(
                   '*Name',
-                  style: TextStyle(color: kPrimaryColor, fontSize: 14),
+                  style: TextStyle(color: kBlackColor, fontSize: 14),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 NormalFields(
                   controller: TextEditingController(text: ''),
                   hintText: '',
-                  labelText: '',
+                  labelText: 'enter name',
                   isEditable: true,
                   onChanged: (String value) {},
                 ),
@@ -69,15 +69,15 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 ),
                 Text(
                   '*Phone Number',
-                  style: TextStyle(color: kPrimaryColor, fontSize: 14),
+                  style: TextStyle(color: kBlackColor, fontSize: 14),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 NormalFields(
                   controller: TextEditingController(text: ''),
                   hintText: '',
-                  labelText: '',
+                  labelText: 'enter phone number',
                   isEditable: true,
                   onChanged: (String value) {},
                 ),
@@ -86,15 +86,16 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 ),
                 Text(
                   '*Feedback comment',
-                  style: TextStyle(color: kPrimaryColor, fontSize: 14),
+                  style: TextStyle(color: kBlackColor, fontSize: 14),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 NormalFields(
                   controller: TextEditingController(text: ''),
                   hintText: '',
-                  labelText: '',
+                  maxLines: 10,
+                  labelText: 'comment here...',
                   isEditable: true,
                   onChanged: (String value) {},
                 ),
@@ -105,7 +106,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   child: Center(
                     child: Text(
                       '         What can we improve?\nYour feedback is always welcome.!!!',
-                      style: TextStyle(color: kPrimaryColor, fontSize: 14),
+                      style: TextStyle(color: kBlackColor, fontSize: 14),
                     ),
                   ),
                 ),

@@ -19,7 +19,7 @@ class _ActivationPageState extends State<ActivationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70.withOpacity(0.99),
+      backgroundColor: kansBgColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(

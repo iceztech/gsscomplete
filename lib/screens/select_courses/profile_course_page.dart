@@ -24,7 +24,7 @@ class _ProfileCoursePageState extends State<ProfileCoursePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70.withOpacity(0.99),
+      backgroundColor: kansBgColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

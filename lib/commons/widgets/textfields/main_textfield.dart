@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NormalFields extends StatelessWidget {
-  final int maxLength;
+  final int maxLength, maxLines;
   final String labelText;
   final String hintText;
   final Function onChanged;
@@ -18,39 +18,39 @@ class NormalFields extends StatelessWidget {
       required this.controller,
       this.textInputType = TextInputType.text,
       this.isEditable = true,
-      this.maxLength = 200});
+      this.maxLength = 200,
+      this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      child: Container(
-        height: 55,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(4))),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 5.0),
-          child: TextField(
-            maxLength: maxLength,
-            maxLines: 1,
-            cursorColor: kSecondaryColor,
-            enabled: isEditable,
-            controller: controller,
-            onChanged: (String name) => onChanged,
-            keyboardType: textInputType,
-            style: TextStyle(
-                fontStyle: FontStyle.normal,
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w400),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: hintText,
-              labelText: labelText,
-              counterText: "",
-              hintStyle: TextStyle(color: Colors.black38, fontSize: 16.0),
-            ),
+    return Container(
+      height: (maxLines > 1) ? 130 : 50,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(4))),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 5.0),
+        child: TextField(
+          maxLength: maxLength,
+          maxLines: maxLines,
+          cursorColor: kSecondaryColor,
+          enabled: isEditable,
+          controller: controller,
+          onChanged: (String name) => onChanged,
+          keyboardType: textInputType,
+          style: TextStyle(
+              fontStyle: FontStyle.normal,
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w400),
+          decoration: InputDecoration(
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            border: InputBorder.none,
+            hintText: hintText,
+            labelText: labelText,
+            counterText: "",
+            labelStyle: TextStyle(color: Colors.black54, fontSize: 16.0),
+            hintStyle: TextStyle(color: Colors.black54, fontSize: 16.0),
           ),
         ),
       ),

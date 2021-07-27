@@ -305,16 +305,13 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-              child: Container(
-                  color: Colors.white,
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      question,
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  )),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  question,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
             ),
           ),
         ),

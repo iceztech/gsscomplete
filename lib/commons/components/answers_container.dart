@@ -131,7 +131,9 @@ class _AnswerExamContainerState extends State<AnswerExamContainer> {
   Widget build(BuildContext context) {
     Color getTheRightColor() {
       if (widget.isAnswered) {
-        if (widget.index == widget.correctAns) {
+        if (widget.index == widget.selectedAns &&
+                widget.selectedAns != widget.correctAns ||
+            widget.index == widget.selectedAns) {
           return kPrimaryColor;
         }
       }
@@ -140,7 +142,9 @@ class _AnswerExamContainerState extends State<AnswerExamContainer> {
 
     Color getAlphaColor() {
       if (widget.isAnswered) {
-        if (widget.index == widget.correctAns) {
+        if (widget.index == widget.selectedAns &&
+                widget.selectedAns != widget.correctAns ||
+            widget.index == widget.selectedAns) {
           return kSecondaryColor;
         }
       }
@@ -149,7 +153,9 @@ class _AnswerExamContainerState extends State<AnswerExamContainer> {
 
     Color getTextColor() {
       if (widget.isAnswered) {
-        if (widget.index == widget.correctAns) {
+        if (widget.index == widget.selectedAns &&
+                widget.selectedAns != widget.correctAns ||
+            widget.index == widget.selectedAns) {
           return kTextWhiteColor;
         }
       }
