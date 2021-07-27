@@ -64,8 +64,8 @@ class _ActivationPageState extends State<ActivationPage> {
               ),
               NormalFields(
                 controller: TextEditingController(text: ''),
-                hintText: 'Enter Your Name',
-                labelText: 'Enter Your Name',
+                hintText: '',
+                labelText: 'enter your name',
                 isEditable: true,
                 onChanged: (String value) {},
               ),
@@ -74,8 +74,8 @@ class _ActivationPageState extends State<ActivationPage> {
               ),
               NormalFields(
                 controller: TextEditingController(text: ''),
-                hintText: 'Enter Phone Number',
-                labelText: 'Enter Phone Number',
+                hintText: '',
+                labelText: 'enter phone number',
                 isEditable: true,
                 onChanged: (String value) {},
               ),

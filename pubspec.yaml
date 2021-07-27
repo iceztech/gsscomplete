@@ -34,7 +34,7 @@ dependencies:
   shared_preferences: 
   sqflite: 
   path:
-
+  intl:
 dev_dependencies:
   lints: ^1.0.0
   flutter_test:

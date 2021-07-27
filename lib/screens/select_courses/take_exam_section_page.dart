@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gsscomplete/commons/components/answers_container.dart';
@@ -5,6 +7,7 @@ import 'package:gsscomplete/models/static_data/question_data.dart';
 import 'package:gsscomplete/screens/score_page/score_page.dart';
 import 'package:gsscomplete/utils/constants/general_constants.dart';
 import 'package:gsscomplete/utils/constants/navigator/navigation_constant.dart';
+import 'package:intl/intl.dart';
 
 class TakeExamSection extends StatefulWidget {
   const TakeExamSection({Key? key}) : super(key: key);
@@ -14,6 +17,23 @@ class TakeExamSection extends StatefulWidget {
 }
 
 class _TakeExamSectionState extends State<TakeExamSection> {
+  int _counter = 4001;
+  late Timer _timer;
+
+  void _startTimer() {
+    _counter = 4001;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_counter > 0) {
+        setState(() {
+          _counter--;
+          _minutes--;
+        });
+      } else {
+        _timer.cancel();
+      }
+    });
+  }
+
   late bool isForward, isBackward;
 
   List<Question> _questions = sample_data
@@ -108,6 +128,14 @@ class _TakeExamSectionState extends State<TakeExamSection> {
 
     isForward = true;
     isBackward = false;
+    _startTimer();
+    _startCountDownTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -132,12 +160,12 @@ class _TakeExamSectionState extends State<TakeExamSection> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Score: 2,354',
+                        'Score: $_counter',
                         style: TextStyle(color: kSecondaryColor),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'Time Remaining: 13:09',
+                        'Time Remaining: ${f.format(_minutes)} : ${f.format(_seconds)}',
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
@@ -146,7 +174,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
               ),
             ),
           ),
-          QuestionContainer(
+          questionContainer(
               questionNumber: questionNum.toString(),
               question: questions[_questionNumber].question),
           SizedBox(
@@ -290,7 +318,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
     );
   }
 
-  Widget QuestionContainer(
+  Widget questionContainer(
       {required String questionNumber, required String question}) {
     return Stack(
       children: [
@@ -332,5 +360,31 @@ class _TakeExamSectionState extends State<TakeExamSection> {
         ),
       ],
     );
+  }
+
+  int _seconds = 00;
+  int _minutes = 15;
+  late Timer _timerCount;
+  var f = NumberFormat("00");
+
+  void _stopTimer() {
+    if (_timerCount != null) {
+      _timerCount.cancel();
+      _seconds = 0;
+      _minutes = 15;
+    }
+  }
+
+  void _startCountDownTimer() {
+    if (_timerCount != null) {
+      _stopTimer();
+    }
+    if (_minutes > 0) {
+      _seconds = _minutes * 60;
+    }
+    if (_seconds > 60) {
+      _minutes = (_seconds / 60).floor();
+      _seconds -= (_minutes * 60);
+    }
   }
 }
