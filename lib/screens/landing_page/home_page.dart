@@ -45,296 +45,299 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Container(
-              padding: EdgeInsets.only(bottom: 10),
-              width: MediaQuery.of(context).size.width,
-              decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.vertical(
-                      bottom: Radius.elliptical(
-                    MediaQuery.of(context).size.width,
-                    60.0,
-                  )),
-                  color: kPrimaryColor),
-              child: Stack(
-                children: [
-                  Column(
-                    children: [
-                      Visibility(
-                        visible: loading,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: IgnorePointer(
-                            ignoring: !loading,
-                            child: AnimatedOpacity(
-                              opacity: loading ? 1 : 0,
-                              duration: Duration(milliseconds: 500),
-                              child: Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 50,
-                                    ),
-                                    Text(
-                                      'Unizik GSS Complete',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Visibility(
-                                      visible: false,
-                                      child: Text(
-                                        'Welcome',
-                                        style: TextStyle(color: Colors.white),
+            child: ClipPath(
+              clipper: CurveClipper(),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                decoration: new BoxDecoration(color: kPrimaryColor),
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Visibility(
+                          visible: loading,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: IgnorePointer(
+                              ignoring: !loading,
+                              child: AnimatedOpacity(
+                                opacity: loading ? 1 : 0,
+                                duration: Duration(milliseconds: 500),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 50,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                        width: 90,
-                                        height: 90,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            shape: BoxShape.circle),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(10),
-                                          child: Image.asset(
-                                            'assets/images/unizik.jpg',
-                                            height: 40,
-                                            width: 40,
-                                          ),
-                                        )),
-                                    SizedBox(
-                                      height: 30,
-                                    ),
-                                    Container(
-                                      height: 35,
-                                      width: 130,
-                                      decoration: BoxDecoration(
-                                        color: kTransparent,
-                                        border: Border.all(
-                                            width: 2.0, color: kTextWhiteColor),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8.0)),
-                                      ),
-                                      child: Center(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            kopenPage(
-                                                context, RegistrationPage());
-                                          },
-                                          child: Text(
-                                            'Activate Now',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    GestureDetector(
-                                      onTap: _toggle,
-                                      child: Text(
-                                        'No Account? Activate Now',
+                                      Text(
+                                        'Unizik GSS Complete',
                                         style: TextStyle(
-                                            color:
-                                                Colors.white.withOpacity(0.6),
-                                            fontSize: 15),
+                                            color: Colors.white, fontSize: 18),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: loading1,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: IgnorePointer(
-                            ignoring: !loading1,
-                            child: AnimatedOpacity(
-                              opacity: loading1 ? 1 : 0,
-                              duration: Duration(milliseconds: 500),
-                              child: Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 30,
-                                    ),
-                                    Stack(
-                                      children: [
-                                        Container(
-                                            width: 140,
-                                            height: 80,
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                shape: BoxShape.circle),
-                                            child: Padding(
-                                              padding: EdgeInsets.all(10),
-                                              child: Image.asset(
-                                                'assets/images/unizik.jpg',
-                                                height: 40,
-                                                width: 40,
-                                              ),
-                                            )),
-                                        Positioned(
-                                          right: 110,
-                                          child: GestureDetector(
-                                              onTap: _toggle,
-                                              child: Container(
-                                                height: 30,
-                                                width: 30,
-                                                decoration: BoxDecoration(
-                                                    color: kSecondaryColor,
-                                                    shape: BoxShape.circle),
-                                                child: Icon(
-                                                  Icons.close,
-                                                  color: Colors.white,
-                                                  size: 17,
-                                                ),
-                                              )),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Visibility(
+                                        visible: false,
+                                        child: Text(
+                                          'Welcome',
+                                          style: TextStyle(color: Colors.white),
                                         ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Sign in your account',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Container(
-                                        width: 175,
-                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                          width: 90,
+                                          height: 90,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Image.asset(
+                                              'assets/images/unizik.jpg',
+                                              height: 40,
+                                              width: 40,
+                                            ),
+                                          )),
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Container(
+                                        height: 35,
+                                        width: 130,
                                         decoration: BoxDecoration(
+                                          color: kTransparent,
                                           border: Border.all(
                                               width: 2.0,
                                               color: kTextWhiteColor),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8.0)),
                                         ),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 2.0),
-                                          child: TextField(
-                                            maxLines: 1,
-                                            maxLength: 11,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                            decoration: InputDecoration(
-                                                counterText: '',
-                                                border: InputBorder.none,
-                                                hintText: 'Enter Phone Number',
-                                                hintStyle: TextStyle(
-                                                  color: Colors.white
-                                                      .withOpacity(0.6),
-                                                )),
+                                        child: Center(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              kopenPage(
+                                                  context, RegistrationPage());
+                                            },
+                                            child: Text(
+                                              'Activate Now',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white),
+                                            ),
                                           ),
-                                        )),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    Container(
-                                      height: 35,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                        color: kTransparent,
-                                        border: Border.all(
-                                            width: 2.0, color: kTextWhiteColor),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8.0)),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Sign In',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(height: 20),
-                                    Text(
-                                      'No Account? Activate Now',
-                                      style: TextStyle(
-                                          color: Colors.white.withOpacity(0.6),
-                                          fontSize: 15),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      GestureDetector(
+                                        onTap: _toggle,
+                                        child: Text(
+                                          'No Account? Activate Now',
+                                          style: TextStyle(
+                                              color:
+                                                  Colors.white.withOpacity(0.6),
+                                              fontSize: 15),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    bottom: 14,
-                    left: 12,
-                    child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Column(
-                          children: [
-                            Text(
-                              'Version',
-                              style: TextStyle(
-                                  color: kTextWhiteColor, fontSize: 12),
+                        Visibility(
+                          visible: loading1,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: IgnorePointer(
+                              ignoring: !loading1,
+                              child: AnimatedOpacity(
+                                opacity: loading1 ? 1 : 0,
+                                duration: Duration(milliseconds: 500),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Stack(
+                                        children: [
+                                          Container(
+                                              width: 140,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  shape: BoxShape.circle),
+                                              child: Padding(
+                                                padding: EdgeInsets.all(10),
+                                                child: Image.asset(
+                                                  'assets/images/unizik.jpg',
+                                                  height: 40,
+                                                  width: 40,
+                                                ),
+                                              )),
+                                          Positioned(
+                                            right: 110,
+                                            child: GestureDetector(
+                                                onTap: _toggle,
+                                                child: Container(
+                                                  height: 30,
+                                                  width: 30,
+                                                  decoration: BoxDecoration(
+                                                      color: kSecondaryColor,
+                                                      shape: BoxShape.circle),
+                                                  child: Icon(
+                                                    Icons.close,
+                                                    color: Colors.white,
+                                                    size: 17,
+                                                  ),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'Sign in your account',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Container(
+                                          width: 175,
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 2.0,
+                                                color: kTextWhiteColor),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8.0)),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 2.0),
+                                            child: TextField(
+                                              maxLines: 1,
+                                              maxLength: 11,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                              decoration: InputDecoration(
+                                                  counterText: '',
+                                                  border: InputBorder.none,
+                                                  hintText:
+                                                      'Enter Phone Number',
+                                                  hintStyle: TextStyle(
+                                                    color: Colors.white
+                                                        .withOpacity(0.6),
+                                                  )),
+                                            ),
+                                          )),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Container(
+                                        height: 35,
+                                        width: 90,
+                                        decoration: BoxDecoration(
+                                          color: kTransparent,
+                                          border: Border.all(
+                                              width: 2.0,
+                                              color: kTextWhiteColor),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(8.0)),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Sign In',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 20),
+                                      Text(
+                                        'No Account? Activate Now',
+                                        style: TextStyle(
+                                            color:
+                                                Colors.white.withOpacity(0.6),
+                                            fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                            Text(
-                              '2021.0',
-                              style: TextStyle(
-                                  color: Colors.red.withOpacity(0.9),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        )),
-                  ),
-                  Positioned(
-                    top: 50,
-                    right: 12,
-                    child: Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Image.asset('assets/images/star.png')),
-                  ),
-                  Positioned(
-                    top: 50,
-                    left: 12,
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Builder(builder: (context) {
-                        return GestureDetector(
-                          onTap: () {
-                            buildShowBottomSheet(
-                              context: context,
-                              height: 200,
-                              bottomsheetContent: _bottomSheetContent(),
-                            );
-                          },
-                          child: Icon(
-                            Icons.monetization_on,
-                            color: Colors.green[900],
-                            size: 30,
                           ),
-                        );
-                      }),
+                        ),
+                      ],
                     ),
-                  )
-                ],
+                    Positioned(
+                      bottom: 30,
+                      left: 12,
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Column(
+                            children: [
+                              Text(
+                                'Version',
+                                style: TextStyle(
+                                    color: kTextWhiteColor, fontSize: 10),
+                              ),
+                              Text(
+                                '2021.0',
+                                style: TextStyle(
+                                    color: kSecondaryColor.withOpacity(0.9),
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          )),
+                    ),
+                    Positioned(
+                      top: 50,
+                      right: 12,
+                      child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Image.asset('assets/images/star.png')),
+                    ),
+                    Positioned(
+                      top: 50,
+                      left: 12,
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Builder(builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              buildShowBottomSheet(
+                                context: context,
+                                height: 200,
+                                bottomsheetContent: _bottomSheetContent(),
+                              );
+                            },
+                            child: Icon(
+                              Icons.monetization_on,
+                              color: Colors.green[900],
+                              size: 30,
+                            ),
+                          );
+                        }),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -660,4 +663,25 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+class CurveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    int curveHeight = 32;
+    Offset controlPoint = Offset(size.width / 2, size.height + curveHeight);
+    Offset endPoint = Offset(size.width, size.height - curveHeight);
+
+    Path path = Path()
+      ..lineTo(0, size.height - curveHeight)
+      ..quadraticBezierTo(
+          controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy)
+      ..lineTo(size.width, 0)
+      ..close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
