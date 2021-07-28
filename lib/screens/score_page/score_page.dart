@@ -1,11 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gsscomplete/models/static_data/answer_review_data.dart';
 import 'package:gsscomplete/screens/review_answers_page/review_answers_page.dart';
+import 'package:gsscomplete/screens/select_courses/profile_course_page.dart';
+import 'package:gsscomplete/screens/select_courses/take_exam_section_page.dart';
 import 'package:gsscomplete/utils/constants/general_constants.dart';
 import 'package:gsscomplete/utils/constants/navigator/navigation_constant.dart';
 
 class ScorePage extends StatefulWidget {
-  const ScorePage({Key? key}) : super(key: key);
+  final int score;
+  final int correctAns, wrongAns;
+  final List<AnswerReview> answerReview;
+  const ScorePage(
+      {Key? key,
+      required this.score,
+      required this.correctAns,
+      required this.wrongAns,
+      required this.answerReview})
+      : super(key: key);
 
   @override
   _ScorePageState createState() => _ScorePageState();
@@ -32,7 +44,7 @@ class _ScorePageState extends State<ScorePage> {
                   SafeArea(
                     child: Text(
                       'Very Poor!!! go back to Summary',
-                      style: TextStyle(color: kTextWhiteColor),
+                      style: TextStyle(color: kTextWhiteColor, fontSize: 18),
                     ),
                   ),
                   SizedBox(
@@ -88,7 +100,7 @@ class _ScorePageState extends State<ScorePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '0',
+                              widget.score.toString(),
                               style: TextStyle(
                                   color: kTextWhiteColor, fontSize: 20),
                             ),
@@ -133,14 +145,14 @@ class _ScorePageState extends State<ScorePage> {
                   _buildCorFaiContainer(
                       iconData: Icons.check_circle,
                       title: 'Correct',
-                      number: '0'),
+                      number: widget.correctAns.toString()),
                   SizedBox(
                     height: 5,
                   ),
                   _buildCorFaiContainer(
                       iconData: Icons.close,
                       title: 'Failed',
-                      number: '25',
+                      number: widget.wrongAns.toString(),
                       textColor: kSecondaryColor),
                 ],
               )),
@@ -157,7 +169,9 @@ class _ScorePageState extends State<ScorePage> {
                       width: 50,
                       title: 'Study Home',
                       borderColor: Colors.white,
-                      onTap: () {},
+                      onTap: () {
+                        kopenPage(context, ProfileCoursePage());
+                      },
                       txtcolor: kSecondaryColor),
                   _circularIcon(
                       bgcolor: kSecondaryColor,
@@ -166,7 +180,7 @@ class _ScorePageState extends State<ScorePage> {
                       width: 50,
                       title: 'Play Again',
                       onTap: () {
-                        //kopenPage(context, SelectCourseStudyType());
+                        kopenPage(context, TakeExamSection());
                       },
                       borderColor: Colors.grey.withOpacity(0.6),
                       txtcolor: kPrimaryColor),
@@ -177,7 +191,12 @@ class _ScorePageState extends State<ScorePage> {
                       width: 50,
                       title: 'Review',
                       onTap: () {
-                        kopenPage(context, ReviewPage());
+                        if (widget.answerReview.isEmpty) {
+                          print('You dont have any questions to review');
+                        } else {
+                          kopenPage(context,
+                              ReviewPage(answerReview: widget.answerReview));
+                        }
                       },
                       borderColor: Colors.white,
                       txtcolor: kSecondaryColor)
@@ -259,7 +278,7 @@ class _ScorePageState extends State<ScorePage> {
           ),
           Text(
             title,
-            style: TextStyle(color: txtcolor, fontSize: 18),
+            style: TextStyle(color: txtcolor, fontSize: 14),
           ),
           SizedBox(
             height: 10,

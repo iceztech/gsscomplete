@@ -107,23 +107,23 @@ class _HomePageState extends State<HomePage> {
                                       SizedBox(
                                         height: 30,
                                       ),
-                                      Container(
-                                        height: 35,
-                                        width: 130,
-                                        decoration: BoxDecoration(
-                                          color: kTransparent,
-                                          border: Border.all(
-                                              width: 2.0,
-                                              color: kTextWhiteColor),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8.0)),
-                                        ),
-                                        child: Center(
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              kopenPage(
-                                                  context, RegistrationPage());
-                                            },
+                                      GestureDetector(
+                                        onTap: () {
+                                          kopenPage(
+                                              context, RegistrationPage());
+                                        },
+                                        child: Container(
+                                          height: 35,
+                                          width: 130,
+                                          decoration: BoxDecoration(
+                                            color: kTransparent,
+                                            border: Border.all(
+                                                width: 2.0,
+                                                color: kTextWhiteColor),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(8.0)),
+                                          ),
+                                          child: Center(
                                             child: Text(
                                               'Activate Now',
                                               style: TextStyle(

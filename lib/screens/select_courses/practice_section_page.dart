@@ -90,6 +90,7 @@ class _PracticePageState extends State<PracticePage> {
 
     isForward = true;
     isBackward = false;
+    questions.shuffle();
   }
 
   @override
@@ -190,47 +191,51 @@ class _PracticePageState extends State<PracticePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Visibility(
-                  visible: isBackward,
-                  child: _circularIcon(
-                    bgcolor: kPrimaryColor,
-                    height: 60,
-                    icon: Icons.arrow_back_ios,
-                    width: 60,
-                    title: '',
-                    borderColor: Colors.white,
-                    onTap: () {
-                      setState(() {
-                        previousQuestion();
-                      });
-                    },
-                  ),
-                ),
+                (isBackward)
+                    ? _circularIcon(
+                        bgcolor: kPrimaryColor,
+                        height: 55,
+                        icon: Icons.arrow_back_ios,
+                        width: 55,
+                        title: '',
+                        borderColor: Colors.white,
+                        onTap: () {
+                          setState(() {
+                            previousQuestion();
+                          });
+                        },
+                      )
+                    : Container(
+                        height: 55,
+                        width: 55,
+                      ),
                 _circularIcon(
-                  bgcolor: kPrimaryColor,
-                  height: 50,
+                  bgcolor: kSecondaryColor,
+                  height: 55,
                   icon: Icons.stop,
-                  width: 50,
+                  width: 55,
                   title: '',
                   onTap: () {},
                   borderColor: Colors.grey.withOpacity(0.6),
                 ),
-                Visibility(
-                  visible: isForward,
-                  child: _circularIcon(
-                    bgcolor: kPrimaryColor,
-                    height: 60,
-                    icon: Icons.arrow_forward_ios,
-                    width: 60,
-                    title: '',
-                    onTap: () {
-                      setState(() {
-                        nextQuestion();
-                      });
-                    },
-                    borderColor: Colors.white,
-                  ),
-                )
+                (isForward)
+                    ? _circularIcon(
+                        bgcolor: kPrimaryColor,
+                        height: 55,
+                        icon: Icons.arrow_forward_ios,
+                        width: 55,
+                        title: '',
+                        onTap: () {
+                          setState(() {
+                            nextQuestion();
+                          });
+                        },
+                        borderColor: Colors.white,
+                      )
+                    : Container(
+                        height: 55,
+                        width: 55,
+                      )
               ],
             ),
           )
@@ -263,6 +268,7 @@ class _PracticePageState extends State<PracticePage> {
             child: Icon(
               icon,
               color: Colors.white,
+              size: 18,
             ),
           ),
           SizedBox(

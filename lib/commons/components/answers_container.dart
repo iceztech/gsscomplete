@@ -50,11 +50,13 @@ class _AnswerPracticeContainerState extends State<AnswerPracticeContainer> {
           });
         },
         child: Card(
-          color: getTheRightColor() == Colors.white
+          color: getTheRightColor() == Colors.grey
               ? Colors.transparent
               : getTheRightColor(),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(4),
+            ),
           ),
           elevation: 8,
           child: Padding(

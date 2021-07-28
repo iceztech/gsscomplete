@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gsscomplete/commons/components/answers_container.dart';
+import 'package:gsscomplete/models/static_data/answer_review_data.dart';
 import 'package:gsscomplete/models/static_data/question_data.dart';
 import 'package:gsscomplete/screens/score_page/score_page.dart';
 import 'package:gsscomplete/utils/constants/general_constants.dart';
@@ -19,6 +20,10 @@ class TakeExamSection extends StatefulWidget {
 class _TakeExamSectionState extends State<TakeExamSection> {
   int _counter = 4001;
   late Timer _timer;
+  List<int> scores = [];
+  var totalScores;
+
+  List<AnswerReview> answerReview = [];
 
   void _startTimer() {
     _counter = 4001;
@@ -26,7 +31,6 @@ class _TakeExamSectionState extends State<TakeExamSection> {
       if (_counter > 0) {
         setState(() {
           _counter--;
-          _minutes--;
         });
       } else {
         _timer.cancel();
@@ -62,9 +66,13 @@ class _TakeExamSectionState extends State<TakeExamSection> {
   late int questionNum;
 
   int _numOfCorrectAns = 0;
+  int _numOfWrongAns = 0;
   int get numOfCorrectAns => this._numOfCorrectAns;
 
-  void checkAns(Question question, int selectedIndex) {
+  void checkAns(
+      {required Question question,
+      required int selectedIndex,
+      required String questionNum}) {
     setState(() {
       _isAnswered = true;
       _correctAns = question.answer;
@@ -74,22 +82,42 @@ class _TakeExamSectionState extends State<TakeExamSection> {
       if (_correctAns == _selectedAns) {
         _numOfCorrectAns++;
         print(_numOfCorrectAns);
+      } else {
+        answerReview.add(AnswerReview(
+            question: questionNum + ". " + question.question,
+            correctAnswer: optionAlpha(selectedIndex) +
+                ". " +
+                question.options[_correctAns],
+            wrongAnswer: optionAlpha(_correctAns) +
+                ". " +
+                question.options[_selectedAns]));
       }
-      Future.delayed(Duration(seconds: 2), () {
-        nextQuestion();
-      });
     } else if (_questionNumber == _questions.length - 1) {
       if (_correctAns == _selectedAns) {
         _numOfCorrectAns++;
         print(_numOfCorrectAns);
-        Future.delayed(Duration(seconds: 5), () {
-          kopenPage(context, ScorePage());
-        });
       }
+      _addScores();
+      if (_numOfCorrectAns != 0) {
+        _numOfWrongAns = _questions.length - _numOfCorrectAns;
+      } else {
+        _numOfWrongAns = _questions.length;
+      }
+      Future.delayed(Duration(seconds: 3), () {
+        kopenPage(
+            context,
+            ScorePage(
+              score: totalScores,
+              correctAns: _numOfCorrectAns,
+              wrongAns: _numOfWrongAns,
+              answerReview: answerReview,
+            ));
+      });
     } else {}
   }
 
   void nextQuestion() {
+    scores.add(_counter);
     if (_questionNumber != _questions.length - 1) {
       setState(() {
         _isAnswered = false;
@@ -129,7 +157,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
     isForward = true;
     isBackward = false;
     _startTimer();
-    _startCountDownTimer();
+    questions.shuffle();
   }
 
   @override
@@ -184,7 +212,11 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             alphabet: 'A',
             answer: questions[_questionNumber].options[0],
             press: () {
-              checkAns(questions[_questionNumber], 0);
+              checkAns(
+                  question: questions[_questionNumber],
+                  selectedIndex: 0,
+                  questionNum: questionNum.toString());
+              scores.add(_counter);
             },
             index: 0,
             correctAns: questions[_questionNumber].answer,
@@ -195,7 +227,12 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             alphabet: 'B',
             answer: questions[_questionNumber].options[1],
             press: () {
-              checkAns(questions[_questionNumber], 1);
+              checkAns(
+                  question: questions[_questionNumber],
+                  selectedIndex: 1,
+                  questionNum: questionNum.toString());
+
+              scores.add(_counter);
             },
             index: 1,
             correctAns: questions[_questionNumber].answer,
@@ -206,7 +243,12 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             alphabet: 'C',
             answer: questions[_questionNumber].options[2],
             press: () {
-              checkAns(questions[_questionNumber], 2);
+              checkAns(
+                  question: questions[_questionNumber],
+                  selectedIndex: 2,
+                  questionNum: questionNum.toString());
+
+              scores.add(_counter);
             },
             index: 2,
             correctAns: questions[_questionNumber].answer,
@@ -217,7 +259,12 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             alphabet: 'D',
             answer: questions[_questionNumber].options[3],
             press: () {
-              checkAns(questions[_questionNumber], 3);
+              checkAns(
+                  question: questions[_questionNumber],
+                  selectedIndex: 3,
+                  questionNum: questionNum.toString());
+
+              scores.add(_counter);
             },
             index: 3,
             correctAns: questions[_questionNumber].answer,
@@ -228,25 +275,57 @@ class _TakeExamSectionState extends State<TakeExamSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Visibility(
-                visible: isBackward,
-                child: _circularIcon(
-                  bgcolor: kPrimaryColor,
-                  height: 50,
-                  icon: Icons.arrow_back_ios,
-                  width: 50,
-                  title: '',
-                  borderColor: Colors.white,
-                  onTap: () {
-                    setState(() {
-                      previousQuestion();
-                    });
-                  },
-                ),
-              ),
+              (isBackward)
+                  ? _circularIcon(
+                      bgcolor: kPrimaryColor,
+                      height: 55,
+                      icon: Icons.arrow_back_ios,
+                      width: 55,
+                      title: '',
+                      borderColor: Colors.white,
+                      onTap: () {
+                        setState(() {
+                          previousQuestion();
+                        });
+                      },
+                    )
+                  : Container(
+                      height: 55,
+                      width: 55,
+                    ),
               GestureDetector(
                 onTap: () {
-                  //kopenPage(context, ScorePage());
+                  if (scores.isEmpty) {
+                    scores.add(_counter);
+                    _addScores();
+                    Future.delayed(Duration(seconds: 2), () {
+                      kopenPage(
+                          context,
+                          ScorePage(
+                            score: totalScores,
+                            correctAns: _numOfCorrectAns,
+                            wrongAns: _numOfWrongAns,
+                            answerReview: answerReview,
+                          ));
+                    });
+                  } else {
+                    _addScores();
+                    Future.delayed(Duration(seconds: 2), () {
+                      kopenPage(
+                          context,
+                          ScorePage(
+                            score: totalScores,
+                            correctAns: _numOfCorrectAns,
+                            wrongAns: _numOfWrongAns,
+                            answerReview: answerReview,
+                          ));
+                    });
+                  }
+                  if (_numOfCorrectAns != 0) {
+                    _numOfWrongAns = _questions.length - _numOfCorrectAns;
+                  } else {
+                    _numOfWrongAns = _questions.length;
+                  }
                 },
                 child: Container(
                   width: 80,
@@ -262,20 +341,24 @@ class _TakeExamSectionState extends State<TakeExamSection> {
                   ),
                 ),
               ),
-              Visibility(
-                visible: isForward,
-                child: _circularIcon(
-                  bgcolor: kPrimaryColor,
-                  height: 50,
-                  icon: Icons.arrow_forward_ios,
-                  width: 50,
-                  title: '',
-                  borderColor: Colors.white,
-                  onTap: () {
-                    nextQuestion();
-                  },
-                ),
-              ),
+              (isForward)
+                  ? _circularIcon(
+                      bgcolor: kPrimaryColor,
+                      height: 55,
+                      icon: Icons.arrow_forward_ios,
+                      width: 55,
+                      title: '',
+                      onTap: () {
+                        setState(() {
+                          nextQuestion();
+                        });
+                      },
+                      borderColor: Colors.white,
+                    )
+                  : Container(
+                      height: 55,
+                      width: 55,
+                    )
             ],
           )
         ],
@@ -307,7 +390,7 @@ class _TakeExamSectionState extends State<TakeExamSection> {
             child: Icon(
               icon,
               color: Colors.white,
-              size: 16,
+              size: 18,
             ),
           ),
           SizedBox(
@@ -367,24 +450,21 @@ class _TakeExamSectionState extends State<TakeExamSection> {
   late Timer _timerCount;
   var f = NumberFormat("00");
 
-  void _stopTimer() {
-    if (_timerCount != null) {
-      _timerCount.cancel();
-      _seconds = 0;
-      _minutes = 15;
-    }
+  void _addScores() {
+    totalScores = scores.reduce((i, j) => i + j);
+    print(totalScores);
   }
 
-  void _startCountDownTimer() {
-    if (_timerCount != null) {
-      _stopTimer();
+  String optionAlpha(int a) {
+    if (a == 0) {
+      return 'A';
+    } else if (a == 1) {
+      return 'B';
+    } else if (a == 2) {
+      return 'C';
+    } else if (a == 3) {
+      return 'D';
     }
-    if (_minutes > 0) {
-      _seconds = _minutes * 60;
-    }
-    if (_seconds > 60) {
-      _minutes = (_seconds / 60).floor();
-      _seconds -= (_minutes * 60);
-    }
+    return '';
   }
 }

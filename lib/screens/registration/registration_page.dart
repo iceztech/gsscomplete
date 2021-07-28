@@ -51,9 +51,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 height: 30,
               ),
               Text(
-                '*FULL NAME',
+                'Full Name*',
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 14,
                   color: kBlackColor,
                 ),
               ),
@@ -71,8 +71,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 height: 20,
               ),
               Text(
-                '*PHONE NUMBER',
-                style: TextStyle(fontSize: 12, color: kBlackColor),
+                'Phone Number*',
+                style: TextStyle(fontSize: 14, color: kBlackColor),
               ),
               SizedBox(
                 height: 5,
@@ -88,8 +88,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 height: 20,
               ),
               Text(
-                '*EMAIL ADDRESS',
-                style: TextStyle(fontSize: 12, color: kBlackColor),
+                'Email Address*',
+                style: TextStyle(fontSize: 14, color: kBlackColor),
               ),
               SizedBox(
                 height: 5,

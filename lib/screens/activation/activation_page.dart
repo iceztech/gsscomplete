@@ -55,7 +55,7 @@ class _ActivationPageState extends State<ActivationPage> {
               NormalFields(
                 controller: TextEditingController(text: ''),
                 hintText: 'Activation Code',
-                labelText: 'Activation Code',
+                labelText: 'Activation code',
                 isEditable: true,
                 onChanged: (String value) {},
               ),

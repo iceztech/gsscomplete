@@ -51,7 +51,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   height: 10,
                 ),
                 Text(
-                  '*Name',
+                  'Name*',
                   style: TextStyle(color: kBlackColor, fontSize: 14),
                 ),
                 SizedBox(
@@ -68,7 +68,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   height: 10,
                 ),
                 Text(
-                  '*Phone Number',
+                  'Phone Number*',
                   style: TextStyle(color: kBlackColor, fontSize: 14),
                 ),
                 SizedBox(
@@ -85,7 +85,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   height: 10,
                 ),
                 Text(
-                  '*Feedback comment',
+                  'Feedback Comment*',
                   style: TextStyle(color: kBlackColor, fontSize: 14),
                 ),
                 SizedBox(
